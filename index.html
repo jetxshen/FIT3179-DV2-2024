@@ -10,345 +10,105 @@
         integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <style>
+        body {
+            background-color: aqua;
+            margin: 20px;
+        }
+        p {
+            text-align: center;
+            line-height: 1.5;
+        }
+        div {
+            
+        }
+    </style>
     <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 </head>
 <body>
-    <h1 style="text-align: center;">Anime</h1>
-    <!-- <p> ana</p> -->
+    <h1 style="text-align: center; font-family: serif; font-size: 40px; border-style: solid; padding: 20px; margin-bottom: 100px; background-color: aliceblue;">Anime</h1>
 
     <div class="pure-g">
-        <div class="pure-u-2-3">
-          <div id="vis" class="vis-container"></div>
-        </div>
-        <div class="pure-u-1-3">
-          <div class="description description-right">
-            <h2>What is Anime?</h2>
+        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3" style="margin-bottom: 50px; background-color: aliceblue;">
+            <h3>What is Anime?</h3>
             <p>Anime is a style of animated television series, movies, and short films that originated in Japan. 
                 It's known for its colorful artwork, vibrant characters, and fantastical storylines. 
                 The word "anime" is just the Japanese term for animation, but outside Japan, 
                 it refers specifically to the Japanese style of animation.</p>
-          </div>
+        </div>
+        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+    </div>
+
+    <!-- Choropleth map -->
+    <div class="pure-g">
+        <div id="maptitle" class="pure-u-1" style="text-align: center; margin-top: 20px;">
+          <h2>Popularity of Anime 2024</h2>
+        </div>
+      </div>
+    <div class="pure-u-1-1">
+        <div id="vis" class="vis-container" style="left: 200px; right: 400px; margin-bottom: 20px;"></div>
+    </div>
+
+
+    <div class="pure-g">
+        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3" style="margin-bottom: 50px; background-color: aliceblue;">
+            <h3>What is Anime?</h3>
+            <p>Anime has expanded across the world, evolving from a niche form of entertainment in Japan to a global cultural phenomenon.</p>
+            <p>Thanks to the rise of streaming platforms like Netflix, Crunchyroll, and Funimation, anime has become accessible to audiences in nearly every country. </p>
+                 <p>Shows like <b>Naruto</b>, <b>Attack on Titan</b>, and <b>One Piece</b> have cultivated massive international fanbases, while social media, fan communities, and conventions have amplified anime's influence. </p>
+                <p> Today, anime is not only a dominant genre in Japan but is also <b>widely searched for</b> and celebrated by fans <b>worldwide</b></p>
+        </div>
+        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+    </div>
+
+
+    <!-- Bar/Pie chart -->
+    <div class="pure-g">
+        <div id="bar-chart" class="pure-u-1-2">
+
         </div>
 
-    <!-- <div id="vis"></div> -->
+      
+    </div>
+    <!-- Scatterplot -->
     <div class="pure-g">
         <div id="scatter-plot" class="pure-u-1-2">
-            <!-- <h1>test</h1> -->
+
         </div>
-        <!-- <div class="pure-u-1-2">
-            <h2>help</h2>
-        </div> -->
+
       
     </div>
     <!-- <div><p> the scatter plot shows the comparison of ratings and score of each anime. Along with their genres.</p></div> -->
     
 </body>
 
+<!-- Choropleth Map -->
 <script type="text/javascript">
-    const map_spec = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-//   "vconcat":[{
-  "title": "Anime Search Popularity",
-  "width": 700,
-  "height": 400,
-  "data": {
-    "url": "ne_110m_admin_0_countries.topojson",
-    // "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
-    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-  },
-  "projection": {"type": "equalEarth"},
-  "layer": [
-    {
-      "transform": [
-        {
-          "calculate": "'Data is not available in ' + datum.properties.NAME",
-          "as": "note"
-        }
-      ],
-      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
-      "encoding": {"tooltip": {"field": "note"}}
-    },
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
-        "format": {"type": "topojson", "feature": "oceans"}
-      },
-      "mark": {"type": "geoshape", "fill": "skyblue"}
-    },
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
-        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
-      },
-      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
-    },
-    {
-      "transform": [
-        {
-          "lookup": "properties.NAME",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/covid_10_10_2020.csv"
-              
-            },
-            "key": "Country",
-            "fields": ["Active", "Confirmed", "Population"]
-          }
-        },
-        {
-          "calculate": "datum.Confirmed/datum.Population * 10000",
-          "as": "Number of searches per 10,000 population"
-        }
-      ],
-      "mark": {"type": "geoshape", "stroke": "white"},
-      "encoding": {
-        "color": {
-          "field": "Number of searches per 10,000 population",
-          "type": "quantitative",
-          "scale": {
-            "type": "threshold",
-            "domain": [1, 10, 100],
-            "range": ["#d9f0d3", "#a6dba0", "#5aae61", "#1b7837"]
-          }
-        },
-        "tooltip": [
-          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-        //   {"field": "Number of searches", "type": "quantitative"},
-          {
-            "field": "Number of searches per 10,000 population",
-            "type": "quantitative",
-            "format": ".2f"
-          }
-        ]
-      }
-    }
-  ],
-  "config": {}
-};
-// var scatter_plot_spec = {
-//             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-//             "data": {
-//                 // "url": "js/scatter_plot_interactive.vg.json"
-//                 "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/4_interactive_scatter_plot/data/COVID_19_10_Oct_2020.csv"
-//             },
-//             "mark": "point",
-//             "encoding": {
-//                 "x": {"field": "hi", "type": "quantitative"},
-//                 "y": {"field": "bye", "type": "quantitative"}
-//             }
-//         };
-
-// const combined_spec = {
-//     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-//     "vconcat": [map_spec, scatter_plot_spec]
-// };
+    const map_spec = "anime_choropleth_map.json";
 
     vegaEmbed("#vis", map_spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
   </script>
 
-
+<!-- Scatterplot -->
   <script type="text/javascript">
 
-    var spec2 = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
-  "height": 600,
-  "title": "Anime Ratings",
-  "data": {
-    "url": "studio codes (week 9)/4_interactive_scatter_plot/data/COVID_19_10_Oct_2020.csv"//"https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/4_interactive_scatter_plot/data/COVID_19_10_Oct_2020.csv"
-  },
-  "params": [
-    {
-      "name": "Population_Above",
-      "value": 0,
-    //   "bind": {
-    //     "input": "range",
-    //     "min": 0,
-    //     "max": 100000000,
-    //     "step": 1000000,
-    //     "name": "Minimum Rank: "
-    //   }
-    },
-    {
-      "name": "Continent_selection",
-      "bind": {
-        "input": "select",
-        "options": [
-          null,
-        //   "Shonen",
-        //   "Isekai",
-        //   "Slice of Life",
-        //   "Fantasy",
-        //   "Comedy",
-        //   "Romance",
-          "North America",
-          "South America",
-          "Europe",
-          "Africa",
-          "Asia",
-          "Oceania"
-        ],
-        "labels": [
-          "Show All",
-          "Shonen",
-          "Isekai",
-          "Slice of Life",
-          "Fantasy",
-          "Comedy",
-          "Romance"
-        ],
-        "name": "Genre : "
-      }
-    }
-  ],
-  "transform": [
-    {"filter": "datum.Active > 0"},
-    {"filter": "datum.Deaths > 0"},
-    {"filter": "datum.Population > Population_Above"},
-    {
-      "filter": "Continent_selection == null || datum.Continent == Continent_selection"
-    },
-    {
-      "calculate": "datum.Confirmed/datum.Population * 10000",
-      "as": "Cases per 10,000 Population"
-    }
-  ],
-  "encoding": {
-    "x": {
-      "field": "Confirmed",
-      "type": "quantitative",
-      "title": "Rank",
-      "axis": {"tickCount": 7},
-      "scale": {"type": "log", "domain": [1, 10000000]}
-    },
-    "y": {
-      "field": "Deaths",
-      "type": "quantitative",
-      "title": "Score",
-      "axis": {"tickCount": 6},
-      "scale": {"type": "log", "domain": [1, 1000000]}
-    }
-  },
-  "layer": [
-    {
-      "mark": "circle",
-      "transform": [
-      {
-          "calculate": "datum.Continent === 'North America' ? 'Shonen' : datum.Continent === 'South America' ? 'Isekai' : datum.Continent === 'Europe' ? 'Slice of Life' : datum.Continent === 'Africa' ? 'Fantasy' : datum.Continent === 'Asia' ? 'Comedy' : 'Romance'",
-          "as": "CustomContinent"
-        }
-      ],
-      "encoding": {
-        // "size": {
-        //   "field": "Population",
-        //   "type": "quantitative",
-        //   "scale": {
-        //     "type": "threshold",
-        //     "domain": [1000000, 10000000, 50000000, 100000000, 500000000],
-        //     "range": [10, 50, 150, 200, 300, 400]
-        //   },
-        //   "legend": {"format": ".1s"}
-        // },
-        "color": {
-          "field": "CustomContinent",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Shonen",
-              "Isekai",
-              "Slice of Life",
-              "Fantasy",
-              "Comedy",
-              "Romance"
-            ],
-            // "domain": [
-                
-            //   "North America",
-            //   "South America",
-            //   "Europe",
-            //   "Africa",
-            //   "Asia",
-            //   "Oceania"
-            // ],
-            "range": 
-            [
-            "#2ca02c",  // Green
-            "#d62728",  // Red
-            "#1f77b4",  // Blue
-            "#9467bd",  // Purple
-            "#ff7f0e",  // Orange
-            "#8c564b"   // Brown
-            ]
-        }
-            // [
-            //   "#e41a1c",
-            //   "#984ea3",
-            //   "#ff7f00",
-            //   "#a6cee3",
-            //   "#377eb8",
-            //   "#a65628"
-            // ]
-            ,
-            "legend" : {
-                "title": "Genre",
-            }
-        },
-        "opacity": {"value": 0.6},
-        "tooltip": [
-        //   {"field": "Country", "type": "nominal", "title": "Anime"},
-          {"field": "Confirmed", "type": "quantitative", "format": ",", "title": "Rank"},
-        //   {"field": "Active", "type": "quantitative", "format": ","},
-          {"field": "Deaths", "type": "quantitative", "format": ",", "title": "Score"},
-        //   {"field": "Recovered", "type": "quantitative", "format": ","},
-        //   {
-        //     "field": "Cases per 10,000 Population",
-        //     "type": "quantitative",
-        //     "format": ".2f"
-        //   }
-        ]
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "baseline": "middle",
-        "dx": -12,
-        "fontSize": 11.5,
-        "fontStyle": "italic"
-      },
-      "encoding": {
-        "text": {"field": "Country", "type": "nominal"},
-        "color": {"value": "black"},
-        "opacity": {
-          "condition": {
-            "test": "datum['Country'] == 'Naruto' || datum['Country'] == 'Shingeki no Kyojin' || datum['Country'] == 'Redo of Healer' || datum['Country'] == 'Yosuga no Sora' || datum['Country'] == 'Jujutsu Kaisen' || datum['Country'] == 'Your Name'",// || datum.title == 'Shingeki no Kyojin'",//"datum['Country'] == 'China' || datum['Country'] == 'Singapore' || datum['Country'] == 'Australia' || datum['Country'] == 'New Zealand' || datum['Country'] == 'Italy' || datum['Country'] == 'Yemen' ||  datum['Country'] == 'United States'",
-            "value": 1
-          },
-          "value": 0
-        },
-        "tooltip": [
-          //{"field": "Country", "type": "nominal", "title": "Anime"},
-          {"field": "Confirmed", "type": "quantitative", "format": ",", "title": "Rank"},
-        //   {"field": "Active", "type": "quantitative", "format": ","},
-          {"field": "Deaths", "type": "quantitative", "format": ","},
-        //   {"field": "Recovered", "type": "quantitative", "format": ","},
-        //   {
-        //     "field": "Cases per 10,000 Population",
-        //     "type": "quantitative",
-        //     "format": ".2f"
-        //   }
-        ]
-      }
-    }
-  ]
-};
+    var spec2 = "anime_scatterplot.json";
     vegaEmbed('#scatter-plot', spec2).then(function(result) {
         // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
   </script>
+
+<!-- Bar/Pie Chart -->
+ <script type="text/javascript">
+    var spec3 = "anime_scatterplot.json";
+    
+    vegaEmbed('#bar-chart', spec3).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+ </script>
 </html>
