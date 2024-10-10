@@ -1,0 +1,47 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "processed_genre_data.csv"
+    },
+    "width": 650,
+    "mark": "bar",
+    "transform": [{
+        "aggregate": [{
+          "op": "count",
+          "as": "GenreCount"
+        }],
+        "groupby": ["genre"]
+      },
+        {
+        "joinaggregate": [{
+            "op": "sum",
+            "field": "GenreCount",
+            "as": "TotalAnimes"
+        }]
+    },
+    {
+        "calculate": "datum.GenreCount / datum.TotalAnimes * 100",
+        "as": "Percentage"
+    }
+
+],
+    "height": {"step": 10},
+    "encoding": {
+      "y": {
+        "field": "genre", 
+        "type": "nominal", 
+        "title": "Anime Genre"
+      },
+      "x": {
+        "field": "Percentage",
+        "type": "quantitative",
+        "title": "Percentage of Total Animes (%)"
+      },
+      "tooltip":[
+        {"field":"genre", "type": "nominal", "title": "Genre"},
+        {"field": "GenreCount", "type": "quantitative", "title":"Number of Animes"},
+        {"field": "Percentage", "type": "quantitative", "format":".2f", "title":"Percentage (%)"}
+      ]
+    },
+    "title": "Genre Distribution - Bar Chart"
+  }

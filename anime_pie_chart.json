@@ -1,0 +1,12 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A simple donut chart with embedded data.",
+    "data": {
+      "url": "processed_genre_data.csv"
+    },
+    "mark": {"type": "arc", "innerRadius": 50},
+    "encoding": {
+      "theta": {"field": "score", "type": "quantitative"},
+      "color": {"field": "genre", "type": "nominal"}
+    }
+  }

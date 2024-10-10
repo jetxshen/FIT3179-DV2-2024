@@ -69,12 +69,13 @@
 
     <!-- Bar/Pie chart -->
     <div class="pure-g">
-        <div id="bar-chart" class="pure-u-1-2">
+        <div id="bar-chart" class="pure-u-1-2" style="left: 300px;">
 
         </div>
-
-      
     </div>
+    <!-- <div id="pie-chart" class="pure-u-1-2">
+
+    </div> -->
     <!-- Scatterplot -->
     <div class="pure-g">
         <div id="scatter-plot" class="pure-u-1-2">
@@ -105,9 +106,16 @@
 
 <!-- Bar/Pie Chart -->
  <script type="text/javascript">
-    var spec3 = "anime_scatterplot.json";
+    var spec3 = "anime_bar_chart.json";
     
     vegaEmbed('#bar-chart', spec3).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+ </script>
+  <script type="text/javascript">
+    var spec4 = "anime_pie_chart.json";
+    
+    vegaEmbed('#pie-chart', spec4).then(function(result) {
         // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
  </script>
