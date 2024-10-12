@@ -21,11 +21,31 @@
         }
         p {
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.3;
+            padding: 10px;
         }
-        /* div {
-            
-        } */
+        .sidenav {
+            width: 180px;
+            position: fixed;
+            z-index: 1;
+            top: 10px;
+            left: 10px;
+            background: #eee;
+            overflow-x: hidden;
+            padding: 8px 0;
+            }
+            .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #2196F3;
+            display: block;
+            }
+
+            .sidenav a:hover {
+            background-color: #064579;
+            }
+
     </style>
     <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
@@ -33,22 +53,34 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 </head>
 <body>
-    <h1 style="text-align: center; font-family: serif; font-size: 40px; border-style: solid; padding: 20px; margin-bottom: 100px; background-color: aliceblue;">Anime</h1>
 
+    <h1 style="text-align: center; font-family: serif; font-size: 40px; border-style: solid; padding: 20px; margin-bottom: 100px; background-color: aliceblue;">Anime</h1>
+    <div class="sidenav">
+        <a href="#">Home</a>
+        <a href="#section1">Popularity of Anime 2024</a>
+        <a href="#section2">Distribution of Anime Genres</a>
+        <a href="#section3">Anime Ratings against Popularity (Top 10 Genres)</a>
+
+                
+    </div>
     <div class="pure-g">
-        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3" style="height: 300px; overflow: hidden;">
+            <img src="9c1ccc8bfd376eecd216bf88c4879c1a.jpg" alt="" srcset="" style="width: 100%; height: 100%; object-fit:cover;">
+        </div>
         <div class="pure-u-1-3" style="margin-bottom: 50px; background-color: aliceblue;">
-            <h3>What is Anime?</h3>
+            <h3 style="margin: 10px;">What is Anime?</h3>
             <p>Anime is a style of animated television series, movies, and short films that originated in Japan. 
                 It's known for its colorful artwork, vibrant characters, and fantastical storylines. 
                 The word "anime" is just the Japanese term for animation, but outside Japan, 
                 it refers specifically to the Japanese style of animation.</p>
         </div>
-        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3" style="height: 300px; overflow: hidden;">
+            <img src="Screenshot+(1598).png" alt="" srcset="" style="width: 100%; height: 100%; object-fit:cover;">
+        </div>
     </div>
 
     <!-- Choropleth map -->
-    <div class="pure-g">
+    <div class="pure-g" id="section1">
         <div id="maptitle" class="pure-u-1" style="text-align: center; margin-top: 20px;">
           <h2>Popularity of Anime 2024</h2>
         </div>
@@ -59,7 +91,7 @@
 
 
     <div class="pure-g">
-        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3"></div>
         <div class="pure-u-1-3" style="margin-bottom: 60px; background-color: aliceblue;">
             <!-- <h3>What is Anime?</h3> -->
             <p>Anime has expanded across the world, evolving from a niche form of entertainment in Japan to a global cultural phenomenon.</p>
@@ -67,12 +99,12 @@
                  <p>Shows like <b>Naruto</b>, <b>Attack on Titan</b>, and <b>One Piece</b> have cultivated massive international fanbases, while social media, fan communities, and conventions have amplified anime's influence. </p>
                 <p> Today, anime is not only a dominant genre in Japan but is also <b>widely searched for</b> and celebrated by fans <b>worldwide</b></p>
         </div>
-        <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
+        <div class="pure-u-1-3" ></div>
     </div>
 
 
     <!-- Bar/Pie chart -->
-    <div class="pure-g">
+    <div class="pure-g" id="section2">
         <div id="maptitle" class="pure-u-1" style="text-align: center; margin-top: 20px;">
           <h2>Distribution of Anime Genres</h2>
         </div>
@@ -91,13 +123,13 @@
         <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
     </div>
     <!-- Scatterplot -->
-    <div class="pure-g">
+    <div class="pure-g" id="section3">
         <div id="maptitle" class="pure-u-1" style="text-align: center; margin-top: 20px;">
           <h2>Anime Ratings against Popularity (Top 10 Genres)</h2>
         </div>
     </div>
     <div class="pure-g">
-        <div id="scatter-plot" class="pure-u-1-2" style="left: 350px; margin-bottom: 80px;">
+        <div id="scatter-plot" class="pure-u-1-2" style="left: 250px; margin-bottom: 50px;">
 
         </div>
 
@@ -106,8 +138,19 @@
     <div class="pure-g">
         <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
         <div class="pure-u-1-3" style="margin-bottom: 60px; background-color: aliceblue;">
-            <!-- <h3>What is Anime?</h3> -->
-            <p>meh</p>
+            <p>
+                The <strong>Ratings Score</strong> reflects individual viewer ratings, typically on a scale of 1 to 10, 
+                while <strong>Popularity</strong> is determined by the number of users who have watched or added an anime to their lists.
+            </p>
+            <p>
+                The above correlation suggests that while certain anime gain significant attention and a large viewer base, 
+                they may not always resonate as well with critics or dedicated fans. 
+            </p>
+            <p>
+                This phenomenon can occur for various reasons, such as trending genres or mainstream appeal drawing in casual viewers 
+                who might rate shows less critically than devoted fans. 
+                Consequently, this trend raises intriguing questions about the relationship between mass appeal and perceived quality within the anime community.
+            </p>
         </div>
         <div class="pure-u-1-3" style="background-color: blueviolet;"><p>Thirds</p></div>
     </div>
@@ -115,7 +158,7 @@
     <footer>
         <div style="margin-top: 50px; background-color: aliceblue;">
             <p style="text-align: left;">   Designed by: <strong>Chong Jet Shen</strong></p>
-            <p style="text-align: left;">   Last Modified: <strong>11/10/2024</strong></p>
+            <p style="text-align: left;">   Last Modified: <strong>13/10/2024</strong></p>
             <p style="text-align: left;">   Sources: 
                 <strong>MyAnimeList (<a href="https://www.kaggle.com/datasets/marlesson/myanimelist-dataset-animes-profiles-reviews">Kaggle</a>)
             , <a href="https://trends.google.com/home?hl=en-GB">Google Trends</a></strong></p>

@@ -13,22 +13,28 @@
         "input": "select",
         "options": [
           null,
-          "Comedy",
           "Action",
-          "Fantasy",
           "Adventure",
-          "Slice of Life",
+          "Comedy",
           "Drama",
-          "Romance"
+          "Fantasy",
+          "Romance",
+          "Sci-Fi",
+          "Slice of Life",
+          "Sports"
+
         ],
         "labels": [
           "Show All",
-          "Comedy",
           "Action",
-          "Fantasy",
-          "Slice of Life",
+          "Adventure",
+          "Comedy",
           "Drama",
-          "Romance"
+          "Fantasy",
+          "Romance",
+          "Sci-Fi",
+          "Slice of Life",
+          "Sports"
         ],
         "name": "Genre : "
       }
@@ -40,7 +46,7 @@
             "as": "AdjustedGenre"
         },
         {
-            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Hentai'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' "
+            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Sports'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' "
         },
         {
             "filter": "datum.score > 0"
@@ -58,13 +64,19 @@
         "field": "popularity",
         "type": "quantitative",
         "title": "Popularity",
-        "axis": {"tickCount": 8}
+        "axis": {"tickCount": 8},
+        "scale": {
+            "domain":[0,16500]
+        }
       },
       "y": {
         "field": "score",
         "type": "quantitative",
-        "title": "Score",
-        "axis": {"tickCount": 10}
+        "title": "Ratings",
+        "axis": {"tickCount": 10},
+        "scale": {
+            "domain":[0,10]
+        }
       },
         "color": {
             "field": "AdjustedGenre",
@@ -81,18 +93,18 @@
       {
         "mark": {
           "type": "text",
-          "align": "right",
+          "align":"center",
           "baseline": "middle",
-          "dx": -12,
+          "dx": -0,
           "fontSize": 11.5,
           "fontStyle": "italic"
         },
         "encoding": {
-          "text": {"field": "Country", "type": "nominal"},
+          "text": {"field": "title", "type": "nominal"},
           "color": {"value": "black"},
           "opacity": {
             "condition": {
-              "test": "datum['Country'] == 'Naruto' || datum['Country'] == 'Shingeki no Kyojin' || datum['Country'] == 'Redo of Healer' || datum['Country'] == 'Yosuga no Sora' || datum['Country'] == 'Jujutsu Kaisen' || datum['Country'] == 'Your Name'",
+              "test": "datum['Country'] == 'Shingeki no Kyojin' || datum['Country'] == 'Redo of Healer' || datum['Country'] == 'Yosuga no Sora' || datum['Country'] == 'Jujutsu Kaisen' || datum['Country'] == 'Your Name'",
               "value": 1
             },
             "value": 0
@@ -102,7 +114,7 @@
             {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
             {"field": "ranked", "type": "nominal", "format": ",", "title": "Rank"},
             {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
-            {"field": "score", "type": "quantitative", "format": ",", "title": "Score (out of 10)"}
+            {"field": "score", "type": "quantitative", "format": ",", "title": "Ratings (out of 10)"}
 
           ]
         }
