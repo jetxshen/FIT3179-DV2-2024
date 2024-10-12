@@ -6,13 +6,48 @@
     "data": {
       "url": "processed_genre_data.csv"
     },
+    "params": [
+    {
+      "name": "Genre_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Comedy",
+          "Action",
+          "Fantasy",
+          "Adventure",
+          "Slice of Life",
+          "Drama",
+          "Romance"
+        ],
+        "labels": [
+          "Show All",
+          "Comedy",
+          "Action",
+          "Fantasy",
+          "Slice of Life",
+          "Drama",
+          "Romance"
+        ],
+        "name": "Genre : "
+      }
+    }
+  ],
     "transform": [
         {
             "calculate": "datum.genre === '' ? 'Others' : datum.genre",
             "as": "AdjustedGenre"
         },
         {
+            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Hentai'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' "
+        },
+        {
             "filter": "datum.score > 0"
+        },
+
+        {
+            "filter": "Genre_selection == null || datum.AdjustedGenre == Genre_selection"
         }
       ],
 
@@ -30,55 +65,18 @@
         "type": "quantitative",
         "title": "Score",
         "axis": {"tickCount": 10}
-      }
+      },
+        "color": {
+            "field": "AdjustedGenre",
+            "type": "nominal",
+            "legend": {"title": "Genre"}
+        }
+      
     },
     "layer": [
       {
-        "mark": "circle",
-        "transform": [
-        {
-            "calculate": "datum.Continent === 'North America' ? 'Shonen' : datum.Continent === 'South America' ? 'Isekai' : datum.Continent === 'Europe' ? 'Slice of Life' : datum.Continent === 'Africa' ? 'Fantasy' : datum.Continent === 'Asia' ? 'Comedy' : 'Romance'",
-            "as": "CustomContinent"
-          }
-        ],
-        "encoding": {
+        "mark": "circle"
 
-          "color": {
-            "field": "CustomContinent",
-            "type": "nominal",
-            "scale": {
-              "domain": [
-                "Shonen",
-                "Isekai",
-                "Slice of Life",
-                "Fantasy",
-                "Comedy",
-                "Romance"
-              ],
-
-              "range": 
-              [
-              "#2ca02c",  
-              "#d62728",  
-              "#1f77b4", 
-              "#9467bd",  
-              "#ff7f0e",  
-              "#8c564b"   
-              ]
-          }
-
-              ,
-              "legend" : {
-                  "title": "Genre"
-              }
-          },
-          "opacity": {"value": 0.6},
-          "tooltip": [
-            {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
-            {"field": "score", "type": "quantitative", "format": ",", "title": "Score (out of 10)"}
-
-          ]
-        }
       },
       {
         "mark": {
@@ -100,6 +98,9 @@
             "value": 0
           },
           "tooltip": [
+            {"field": "title", "type": "nominal", "title": "Anime"},
+            {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+            {"field": "ranked", "type": "nominal", "format": ",", "title": "Rank"},
             {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
             {"field": "score", "type": "quantitative", "format": ",", "title": "Score (out of 10)"}
 
