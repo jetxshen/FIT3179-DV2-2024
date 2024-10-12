@@ -2,7 +2,6 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 500,
     "height": 500,
-    "title": "Anime Ranks against Popularity",
     "data": {
       "url": "processed_genre_data.csv"
     },
@@ -72,7 +71,7 @@
       "y": {
         "field": "score",
         "type": "quantitative",
-        "title": "Ratings",
+        "title": "Ratings Score",
         "axis": {"tickCount": 10},
         "scale": {
             "domain":[0,10]
