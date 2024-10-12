@@ -6,11 +6,15 @@
     "width": 650,
     "mark": "bar",
     "transform": [{
+        "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+        "as": "AdjustedGenre"
+    },
+    {
         "aggregate": [{
           "op": "count",
           "as": "GenreCount"
         }],
-        "groupby": ["genre"]
+        "groupby": ["AdjustedGenre"]
       },
         {
         "joinaggregate": [{
@@ -28,9 +32,13 @@
     "height": {"step": 13},
     "encoding": {
       "y": {
-        "field": "genre", 
+        "field": "AdjustedGenre", 
         "type": "nominal", 
-        "title": "Anime Genre"
+        "title": "Anime Genre",
+        "sort": {
+            "field": "Percentage",
+            "order":"descending"
+          }
       },
       "x": {
         "field": "Percentage",
@@ -38,9 +46,9 @@
         "title": "Percentage of Total Animes (%)"
       },
       "tooltip":[
-        {"field":"genre", "type": "nominal", "title": "Genre"},
+        {"field":"AdjustedGenre", "type": "nominal", "title": "Genre"},
         {"field": "GenreCount", "type": "quantitative", "title":"Number of Animes"},
-        {"field": "Percentage", "type": "quantitative", "format":".2f", "title":"Percentage (%)"}
+        {"field": "Percentage", "type": "quantitative", "format":".2f", "title":"Percentage of Animes (%)"}
       ]
     }
   }

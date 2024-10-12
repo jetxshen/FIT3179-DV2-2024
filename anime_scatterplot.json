@@ -2,68 +2,34 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 500,
     "height": 500,
-    "title": "Anime Ratings",
+    "title": "Anime Ranks against Popularity",
     "data": {
-      "url": "studio codes (week 9)/4_interactive_scatter_plot/data/COVID_19_10_Oct_2020.csv"
+      "url": "processed_genre_data.csv"
     },
-    "params": [
-      {
-        "name": "Population_Above",
-        "value": 0
-      },
-      {
-        "name": "Continent_selection",
-        "bind": {
-          "input": "select",
-          "options": [
-            null,
-
-            "North America",
-            "South America",
-            "Europe",
-            "Africa",
-            "Asia",
-            "Oceania"
-          ],
-          "labels": [
-            "Show All",
-            "Shonen",
-            "Isekai",
-            "Slice of Life",
-            "Fantasy",
-            "Comedy",
-            "Romance"
-          ],
-          "name": "Genre : "
-        }
-      }
-    ],
     "transform": [
-      {"filter": "datum.Active > 0"},
-      {"filter": "datum.Deaths > 0"},
-      {"filter": "datum.Population > Population_Above"},
-      {
-        "filter": "Continent_selection == null || datum.Continent == Continent_selection"
-      },
-      {
-        "calculate": "datum.Confirmed/datum.Population * 10000",
-        "as": "Cases per 10,000 Population"
-      }
-    ],
+        {
+            "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+            "as": "AdjustedGenre"
+        },
+        {
+            "filter": "datum.score > 0"
+        }
+      ],
+
+
+
     "encoding": {
       "x": {
-        "field": "Confirmed",
+        "field": "popularity",
         "type": "quantitative",
-        "title": "Rank",
-        "axis": {"tickCount": 7},
-        "scale": {"type": "log", "domain": [1, 10000000]}
+        "title": "Popularity",
+        "axis": {"tickCount": 8}
       },
       "y": {
-        "field": "Deaths",
+        "field": "score",
         "type": "quantitative",
         "title": "Score",
-        "axis": {"tickCount": 6},
-        "scale": {"type": "log", "domain": [1, 1000000]}
+        "axis": {"tickCount": 10}
       }
     },
     "layer": [
@@ -108,8 +74,8 @@
           },
           "opacity": {"value": 0.6},
           "tooltip": [
-            {"field": "Confirmed", "type": "quantitative", "format": ",", "title": "Rank"},
-            {"field": "Deaths", "type": "quantitative", "format": ",", "title": "Score"}
+            {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
+            {"field": "score", "type": "quantitative", "format": ",", "title": "Score (out of 10)"}
 
           ]
         }
@@ -134,8 +100,8 @@
             "value": 0
           },
           "tooltip": [
-            {"field": "Confirmed", "type": "quantitative", "format": ",", "title": "Rank"},
-            {"field": "Deaths", "type": "quantitative", "format": ","}
+            {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
+            {"field": "score", "type": "quantitative", "format": ",", "title": "Score (out of 10)"}
 
           ]
         }
