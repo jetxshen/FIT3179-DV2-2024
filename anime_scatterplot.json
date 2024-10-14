@@ -17,6 +17,7 @@
           "Comedy",
           "Drama",
           "Fantasy",
+          "Music",
           "Romance",
           "Sci-Fi",
           "Slice of Life",
@@ -30,6 +31,7 @@
           "Comedy",
           "Drama",
           "Fantasy",
+          "Music",
           "Romance",
           "Sci-Fi",
           "Slice of Life",
@@ -45,12 +47,11 @@
             "as": "AdjustedGenre"
         },
         {
-            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Sports'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' "
+            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Sports'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' || datum.AdjustedGenre == 'Music'"
         },
         {
             "filter": "datum.score > 0"
         },
-
         {
             "filter": "Genre_selection == null || datum.AdjustedGenre == Genre_selection"
         }
@@ -77,12 +78,21 @@
             "domain":[0,10]
         }
       },
-        "color": {
-            "field": "AdjustedGenre",
-            "type": "nominal",
-            "legend": {"title": "Genre"}
-        }
-      
+      "color": {
+        "field": "AdjustedGenre",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "Action", "Adventure", "Comedy", "Drama", "Fantasy", 
+            "Music", "Romance", "Sci-Fi", "Slice of Life", "Sports"
+          ],
+          "range": [
+            "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", 
+            "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+          ]
+        },
+        "legend": {"title": "Genre"}
+      }
     },
     "layer": [
       {
@@ -93,8 +103,7 @@
         "mark": {
           "type": "text",
           "align":"center",
-          "baseline": "middle",
-          "dx": -0,
+          "baseline":"middle",
           "fontSize": 11.5,
           "fontStyle": "italic"
         },
@@ -103,7 +112,7 @@
           "color": {"value": "black"},
           "opacity": {
             "condition": {
-              "test": "datum['Country'] == 'Shingeki no Kyojin' || datum['Country'] == 'Redo of Healer' || datum['Country'] == 'Yosuga no Sora' || datum['Country'] == 'Jujutsu Kaisen' || datum['Country'] == 'Your Name'",
+              "test": "datum['title'] == 'Shingeki no Kyojin' || datum['title'] == 'Fullmetal Alchemist: Brotherhood' || datum['title'] == 'Ai (ONA)' || datum['title'] == 'Wu Geng Ji 3rd Season'",
               "value": 1
             },
             "value": 0
