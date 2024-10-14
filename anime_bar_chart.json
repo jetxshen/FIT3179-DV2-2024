@@ -4,7 +4,7 @@
       "url": "processed_genre_data.csv"
     },
     "width": 650,
-    "mark": "bar",
+    
     "transform": [{
         "calculate": "datum.genre === '' ? 'Others' : datum.genre",
         "as": "AdjustedGenre"
@@ -28,7 +28,10 @@
         "as": "Percentage"
     }
 
-],
+    ],
+    "layer":[
+    {
+    "mark": "bar",
     "height": {"step": 13},
     "encoding": {
       "y": {
@@ -45,10 +48,53 @@
         "type": "quantitative",
         "title": "Percentage of Total Animes (%)"
       },
+      "color":{
+        "condition": {
+            "test": "datum.AdjustedGenre === 'Comedy'",
+            "value": "#ff7f0e" 
+          }
+    },
       "tooltip":[
         {"field":"AdjustedGenre", "type": "nominal", "title": "Genre"},
         {"field": "GenreCount", "type": "quantitative", "title":"Number of Animes"},
         {"field": "Percentage", "type": "quantitative", "format":".2f", "title":"Percentage of Animes (%)"}
       ]
+
     }
-  }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align":"center",
+          "baseline":"middle",
+          "fontSize": 12,
+          "dy": -60,
+          "dx":-200,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "text": {
+            "value": "Many anime contains the Comedy genre, contributing to the large contribution towards the total anime existing."
+          },
+          "color": {
+            "value": "black"
+          },
+          "x": {
+            "field": "Percentage",
+            "type": "quantitative",
+            "aggregate": "max"
+          }
+          
+        },
+        "transform": [
+          {
+            "filter": {
+              "field": "AdjustedGenre",
+              "oneOf": ["Comedy"] 
+            }
+          }
+        ]
+      }
+    ]
+
+}

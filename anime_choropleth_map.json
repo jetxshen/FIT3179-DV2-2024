@@ -69,6 +69,33 @@
             }
           ]
         }
+      },
+      {
+        "data": {
+        "values": [
+          {"country": "USA", "longitude": -160.7129, "latitude": 37.0902, "note": "USA, High anime interest"},
+          {"country": "Japan", "longitude": 170.2529, "latitude": 36.2048, "note": "Japan, Home of anime"}
+        ]
+      },
+      
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "color": "black",
+        
+        "dy": -5
+      },
+      "transform": [
+        {
+          "filter": {"field": "country", "oneOf": ["USA", "Japan"]}
+        }
+      ],
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "note"}
+      }
+    
       }
     ],
     "config": {}
