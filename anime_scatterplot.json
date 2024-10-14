@@ -112,7 +112,7 @@
           "color": {"value": "black"},
           "opacity": {
             "condition": {
-              "test": "datum['title'] == 'Shingeki no Kyojin' || datum['title'] == 'Fullmetal Alchemist: Brotherhood' || datum['title'] == 'Ai (ONA)' || datum['title'] == 'Wu Geng Ji 3rd Season'",
+              "test": "datum['title'] =='Bumblebee Hajimete no Chikyuu Seikatsu'||datum['title'] == 'Hametsu no Mars' ||datum['title'] == 'Shingeki no Kyojin' || datum['title'] == 'Fullmetal Alchemist: Brotherhood' || datum['title'] == 'Ai (ONA)' || datum['title'] == 'Wu Geng Ji 3rd Season'",
               "value": 1
             },
             "value": 0
