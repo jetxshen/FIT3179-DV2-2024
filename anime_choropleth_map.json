@@ -42,23 +42,21 @@
                 
               },
               "key": "country",
-              "fields": ["AnimePopularityInterest2024","AnimePopularityInterest2023"]
+              "fields": ["AnimePopularityInterest2024"]
             }
-          },
-          {
-            "calculate": "datum.Confirmed/datum.Population * 10000",
-            "as": "Number of searches per 10,000 population"
           }
         ],
         "mark": {"type": "geoshape", "stroke": "white"},
         "encoding": {
           "color": {
             "field": "AnimePopularityInterest2024",
+            "title":"Number of searches",
             "type": "quantitative",
             "scale": {
               "type": "threshold",
               "domain": [20,40,60,80],
-              "range": ["#f7f7f7", "#f0ebcc", "#e4b92f", "#d9a400", "#c88f00"]
+              "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]
+              
             }
           },
           "tooltip": [
@@ -66,7 +64,8 @@
             {
               "field": "AnimePopularityInterest2024",
               "type": "quantitative",
-              "format": ".2f"
+              "format": ".2f",
+              "title": "Number of searches per total searches"
             }
           ]
         }
