@@ -74,7 +74,40 @@
         },
         "encoding": {
           "text": {
-            "value": "Many anime contains the Comedy genre, contributing to the large contribution towards the total anime existing."
+            "value": "The Comedy genre dominates with the highest percentage of all existing anime,"
+          },
+          "color": {
+            "value": "black"
+          },
+          "x": {
+            "field": "Percentage",
+            "type": "quantitative",
+            "aggregate": "max"
+          }
+          
+        },
+        "transform": [
+          {
+            "filter": {
+              "field": "AdjustedGenre",
+              "oneOf": ["Comedy"] 
+            }
+          }
+        ]
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align":"center",
+          "baseline":"middle",
+          "fontSize": 12,
+          "dy": -40,
+          "dx":-200,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "text": {
+            "value": "showcasing its widespread popularity across the medium."
           },
           "color": {
             "value": "black"
